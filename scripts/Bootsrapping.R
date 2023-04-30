@@ -13,9 +13,9 @@ meanBootsNormal40 <- replicate(40, mean(sample(distNormal, 14, replace = TRUE)))
 meanBootsNormal80 <- replicate(80, mean(sample(distNormal, 14, replace = TRUE))) # calculamos a média de 80 amostras de 14 casos
 
 # Comparando as médias
-mean(meanBootsNormal20) # media do boostraping 10
-mean(meanBootsNormal40) # media do boostraping 50
-mean(meanBootsNormal80) # media do boostraping 100
+mean(meanBootsNormal20) # media do boostraping 20
+mean(meanBootsNormal40) # media do boostraping 40
+mean(meanBootsNormal80) # media do boostraping 80
 mean(distNormal) # media dos dados originais
 
 

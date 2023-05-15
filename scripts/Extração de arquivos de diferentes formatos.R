@@ -1,23 +1,37 @@
 
-#Extração de arquivos de diferentes formatos
+#Extração e leitura
 
-# arquivos de excel
-install.packages('readxl')
-library(readxl)
+#Instalando pacote
+install.packages('microbenchmark')
+library(microbenchmark)
 
-AcidentesRecife2022 <- read_excel("bases_originais/acidentes-2022.xlsx", sheet=1)
+#Exportando no formato do R
+saveRDS(sinistrosRecifeRaw, "bases_tratadas/sinistrosRecife.rds")
 
-# arquivos json
-install.packages('rjson')
-library(rjson)
+# exporta em formato tabular (.csv) - padrão para interoperabilidade
+write.csv2(sinistrosRecifeRaw, "bases_tratadas/sinistrosRecife.csv")
 
-areas_de_risco <- fromJSON(file= "http://dados.recife.pe.gov.br/dataset/45dbabee-0352-411a-b289-66fccde8942a/resource/159bf7d4-4424-4d37-b830-d19ae76cd500/download/sedecchamados.json" )
+# exportando em formato tabular (.xls) com outro comando
+write.table(sinistrosRecifeRaw, "bases_tratadas/sinistrosRecife.xls")
 
-areas_de_risco <- as.data.frame(areas_de_risco)
+# carrega base de dados em formato nativo R 
+sinistrosRecife <- readRDS("bases_tratadas/sinistrosRecife.rds")
+
+#carrega base de dados em formato tabular (.csv)
+sinistrosRecife <- read.csv2("bases_tratadas/sinistrosRecife.csv", sep = ';')
+
+# carrega base de dados em formato tabular (.xls) 
+sinistrosRecife <- read.table("bases_tratadas/sinistrosRecife.xls", sep = ';')
+
+# compara os três processos de exportação, usando a função microbenchmark
+
+microbenchmark(a <- saveRDS(sinistrosRecifeRaw, "bases_tratadas/sinistrosRecife.rds"), b <- write.csv2(sinistrosRecifeRaw, "bases_tratadas/sinistrosRecife.csv"), c <- write.table(sinistrosRecife, "bases_tratadas/sinistrosRecife.xls"), times = 30L) # .rds responde mais rápido
+
+microbenchmark(a <- readRDS('bases_tratadas/sinistrosRecife.rds'), b <- read.csv2('bases_tratadas/sinistrosRecife.csv', sep = ';'), c <- read.table('bases_tratadas/sinistrosRecife.xls', sep = ';'), times = 30L)
 
 
-# arquivos de texto com read.csv2
-unidade_saude_da_familia <- read.csv2('http://dados.recife.pe.gov.br/dataset/abc2d796-aa13-4ea0-b83a-13605ff98b87/resource/7ec4de7c-004c-4be1-88b1-80b70cf1250a/download/usf.csv', sep = ';', encoding = 'UTF-8')
+
+
 
 
 

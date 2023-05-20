@@ -1,4 +1,6 @@
 
+#Incremental
+
 library(dplyr)
 
 # carrega base de dados original

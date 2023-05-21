@@ -1,5 +1,5 @@
 
-#Exercício de estruturação
+#Exercício de estruturação dos dados
 
 library(data.table)
 library(dplyr)

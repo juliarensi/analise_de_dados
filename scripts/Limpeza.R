@@ -1,5 +1,5 @@
 
-#Exercício de limpeza dos dados
+#Exercício de limpeza do banco de dados
 
 library(data.table)
 library(dplyr)
